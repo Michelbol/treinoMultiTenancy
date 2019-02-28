@@ -13,13 +13,13 @@ class UsersTenantTableSeeder extends Seeder
     {
         factory(\App\Models\UserTenant::class, 1)->create([
             'email' => 'client1@teste.com',
-            'password' => 'client1',
+            'password' => bcrypt('client1'),
             'empresa_id' => 1
         ]);
 
         factory(\App\Models\UserTenant::class, 1)->create([
             'email' => 'client2@teste.com',
-            'password' => 'client2',
+            'password' => bcrypt('client2'),
             'empresa_id' => 2
         ]);
     }
