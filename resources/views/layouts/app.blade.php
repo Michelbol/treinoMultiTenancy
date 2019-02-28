@@ -32,36 +32,42 @@
 
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
-                    <ul class="navbar-nav mr-auto">
-                        <li class="nav-item"><a class="" href="{{ route('category.index') }}">Categoria</a></li>
-                    </ul>
-
+                    @if(Auth::user() && !app(\App\Tenant\TenantManager::class)->isSubdomainException())
+                            <ul class="navbar-nav mr-auto">
+                                <li class="nav-item"><a class="" href="{{ routeTenant('category.index') }}">Categoria</a></li>
+                            </ul>
+                    @endif
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ml-auto">
                         <!-- Authentication Links -->
                         @guest
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
+                                <a class="nav-link" href="{{ routeTenant('login') }}">{{ __('Login') }}</a>
                             </li>
                             @if (Route::has('register'))
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
+                                    <a class="nav-link" href="{{ routeTenant('register') }}">{{ __('Register') }}</a>
                                 </li>
                             @endif
                         @else
+                            @if(app(\App\Tenant\TenantManager::class)->isSubdomainException())
+                            <li class="navbar-brand">
+                                <span>Admin</span>
+                            </li>
+                            @endif
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     {{ Auth::user()->name }} <span class="caret"></span>
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="{{ route('logout') }}"
+                                    <a class="dropdown-item" href="{{ routeTenant('logout' ) }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
                                         {{ __('Logout') }}
                                     </a>
 
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                    <form id="logout-form" action="{{ routeTenant('logout') }}" method="POST" style="display: none;">
                                         @csrf
                                     </form>
                                 </div>

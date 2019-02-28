@@ -45,10 +45,9 @@ class CategoryController extends Controller
 
             DB::commit();
         }catch (\Exception $exception){
-            dd($exception);
             db::rollBack();
         }
-        return redirect()->route('category.index');
+        return redirect()->routeTenant('category.index');
     }
 
     /**
@@ -68,7 +67,7 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($empresa, $id)
     {
         $category = Category::find($id);
         return view('category.edit', compact('category'));
@@ -81,7 +80,7 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $empresa, $id)
     {
         try{
             DB::beginTransaction();
@@ -91,9 +90,10 @@ class CategoryController extends Controller
             $category->save();
             DB::commit();
         }catch (\Exception $exception){
+            dd($exception);
             db::rollBack();
         }
-        return redirect()->route('category.index');
+        return redirect()->routeTenant('category.index');
     }
 
     /**

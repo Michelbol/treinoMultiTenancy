@@ -2,6 +2,7 @@
 
 namespace App\Scopes;
 
+use App\Tenant\TenantManager;
 use Illuminate\Database\Eloquent\Model;
 
 trait TenantModels
@@ -12,10 +13,12 @@ trait TenantModels
         parent::boot();
 
         static::addGlobalScope(new TenantScopes());
-        dd(\Request::route(config('tenant.route_param')));
 
         static::creating(function(Model $model){
-
+            $tenant = new TenantManager();
+            if($tenant->getTenant()){
+                $model->empresa_id = $tenant->getTenant()->id;
+            }
         });
     }
 }

@@ -11,22 +11,37 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
 $app_url = config('app.url');
 $domain = str_replace(':', '', parse_url($app_url)['host']);
 $tenantParam = config('tenant.route_param');
 
-Route::domain("{{$tenantParam}}.$domain")->group(function(){
+Route::domain("{{$tenantParam}}.$domain")
+    ->middleware('tenant')
+    ->group(function(){
+    Route::get('/', function () {
+        return view('welcome');
+    });
 
     Auth::routes();
 
     Route::get('/home', 'HomeController@index')->name('home');
 
-    Route::resource('category', 'CategoryController')->except([
-        'update'
-    ]);
+    Route::prefix('/admin')
+        ->middleware('auth:web')
+        ->group(function(){
+            Route::get('/', function () {
+                return view('welcome');
+            });
+            Route::get('/home', 'HomeController@index')->name('home');
+        });
 
-    Route::post('/category/{category}', 'CategoryController@update')->name('category.update');
+    Route::prefix('/app')
+    ->middleware('auth:web_tenant')
+    ->group(function(){
+        Route::resource('category', 'CategoryController')->except([
+            'update'
+        ]);
+
+        Route::post('/category/{category}', 'CategoryController@update')->name('category.update');
+    });
 });

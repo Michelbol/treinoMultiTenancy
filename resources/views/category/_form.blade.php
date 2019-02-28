@@ -6,6 +6,6 @@
     </div>
 </div>
 <div class="form-group float-left">
-    <a href="{{ route('category.index') }}" class="btn btn-danger">Cancelar</a>
+    <a href="{{ routeTenant('category.index') }}" class="btn btn-danger">Cancelar</a>
     <button type="submit" class="btn btn-info">Salvar</button>
 </div>

@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/Treino_multi_tenancy.iml" filepath="$PROJECT_DIR$/.idea/Treino_multi_tenancy.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../../PHP/wPet/wPet-dev/.idea/wPet-dev.iml" filepath="$PROJECT_DIR$/../../PHP/wPet/wPet-dev/.idea/wPet-dev.iml" />
     </modules>
   </component>
 </project>
