@@ -12,11 +12,13 @@ class EmpresasTableSeeder extends Seeder
     public function run()
     {
         factory(\App\Models\Empresa::class, 1)->create([
-            'name' => 'Empresa 1'
+            'name' => 'Empresa 1',
+            'subdomain' => 'client1'
         ]);
 
         factory(\App\Models\Empresa::class, 1)->create([
-            'name' => 'Empresa 2'
+            'name' => 'Empresa 2',
+            'subdomain' => 'client2'
         ]);
     }
 }

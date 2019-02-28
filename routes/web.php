@@ -14,7 +14,19 @@
 Route::get('/', function () {
     return view('welcome');
 });
+$app_url = config('app.url');
+$domain = str_replace(':', '', parse_url($app_url)['host']);
+$tenantParam = config('tenant.route_param');
 
-Auth::routes();
+Route::domain("{{$tenantParam}}.$domain")->group(function(){
 
-Route::get('/home', 'HomeController@index')->name('home');
+    Auth::routes();
+
+    Route::get('/home', 'HomeController@index')->name('home');
+
+    Route::resource('category', 'CategoryController')->except([
+        'update'
+    ]);
+
+    Route::post('/category/{category}', 'CategoryController@update')->name('category.update');
+});

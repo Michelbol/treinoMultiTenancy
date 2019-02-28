@@ -16,7 +16,7 @@ class CreateEmpresasTable extends Migration
         Schema::create('empresas', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('name');
-//            $table->string('subdomain', 50);
+            $table->string('subdomain', 50);
             $table->timestamps();
         });
     }
